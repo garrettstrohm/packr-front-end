@@ -1,9 +1,22 @@
-
-import './App.css';
+import React from 'react'
+import NavBar from './NavBar';
+import LandingPage from './LandingPage';
+import CreateNewUser from './CreateNewUser';
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <h1>Sup I'm an App</h1>
+    <div className="App">
+      <NavBar/>
+      <Switch>
+        <Route path="/create_new_user">
+          <CreateNewUser />
+        </Route>
+        <Route path="/welcome">
+          <LandingPage />
+        </Route>
+      </Switch>
+    </div>
   );
 }
 
