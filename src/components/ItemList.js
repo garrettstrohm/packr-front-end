@@ -26,8 +26,6 @@ function ItemList({items, setItems, trip}){
             setItems(updatedList)
         })
     }
-    console.log("trip:", trip)
-    console.log("newItem:", newItem)
     
     function handleSubmit(e){
         e.preventDefault();
@@ -45,7 +43,6 @@ function ItemList({items, setItems, trip}){
         })
         .then(r => r.json())
         .then(data => {
-            console.log("data:", data)
             setItems([...items, data])
         })
     }

@@ -26,6 +26,7 @@ function OrganizedTrip() {
             setItems(data.trip_items)
         })
     }, [tripId])
+    
 
     function onDeleteAdv(deletedAdventure){
         const updatedAdv = adventures.filter(adv => adv.id !== deletedAdventure.id)
@@ -43,7 +44,7 @@ function OrganizedTrip() {
             </div>
             <div float="right">
                 <h1>Adventurers:</h1>
-                <AdventurerList adventures={adventures} trip={trip} onDeleteAdv={onDeleteAdv}/>
+                <AdventurerList adventures={adventures} trip={trip} onDeleteAdv={onDeleteAdv} setAdventures={setAdventures}/>
             </div>
             <div>
                 <h1>Gear List</h1>

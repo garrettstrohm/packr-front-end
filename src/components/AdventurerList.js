@@ -2,7 +2,7 @@
 import AdventurerCard from "./AdventurerCard"
 import {useEffect, useState} from "react"
 
-function AdventurerList({trip, onDeleteAdv, adventures}){
+function AdventurerList({trip, onDeleteAdv, adventures, setAdventures}){
     const[adventurers, setAdventurers] = useState([])
     const[newAdventurer, setNewAdventurer] = useState({
         first_name:"",
@@ -11,8 +11,6 @@ function AdventurerList({trip, onDeleteAdv, adventures}){
         phone:"",
         trip_id: trip.id
     })
-
-    console.log(newAdventurer)
 
     useEffect(() => {
         setNewAdventurer({...newAdventurer, trip_id: trip.id})
@@ -31,12 +29,36 @@ function AdventurerList({trip, onDeleteAdv, adventures}){
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch()
+        fetch('http://localhost:9595/adventures', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                first_name: newAdventurer.first_name,
+                last_name: newAdventurer.last_name,
+                email: newAdventurer.email,
+                phone: parseInt(newAdventurer.phone),
+                trip_id: newAdventurer.trip_id
+            })
+        })
+        .then(r => {
+            if(!r.ok){
+                throw new Error(r.status)
+            } else {
+                return r.json()
+            }
+        })
+        .then(data => setAdventures([...adventures, data]))
+        .catch(error => {
+            console.log(error)
+            alert("That User Does Not Exist, or Inputs Are Incorrect. Please Check Your Information and Try Again")
+        })
     }
 
     return(
         <>
-        <form >
+        <form onSubmit={handleSubmit}>
                 <label>
                     First Name:
                     <input type="text" name="first_name" placeholder="Name" value={newAdventurer.first_name} onChange={handleOnChange}></input>

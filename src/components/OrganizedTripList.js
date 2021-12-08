@@ -7,7 +7,7 @@ function OrganizedTripList({currentUser}) {
         title:"",
         date:"",
         description:"",
-        user_id: currentUser.id
+        user_id: ""
     })
     const[tripsToDisplay, setTripsToDisplay] = useState([])
 
@@ -20,7 +20,7 @@ function OrganizedTripList({currentUser}) {
         })
     }, [currentUser.id])
 
-    console.log("trips:", trips)
+
 
     function handleOnChange(e){
         setNewTrip({...newTrip, [e.target.name]: e.target.value})
