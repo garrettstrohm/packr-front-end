@@ -1,5 +1,5 @@
 
-function AdventureList(){
+function AdventureList({currentUser}){
     return(
         <div>I am adventure list</div>
     );

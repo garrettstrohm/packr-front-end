@@ -27,7 +27,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function CreateNewUser() {
+export default function CreateNewUser({changeUser}) {
     const[newUser, setNewUser] = useState({
         username:"",
         firstName:"",
@@ -35,7 +35,6 @@ export default function CreateNewUser() {
         email:"",
         phone:"",
     })
-    console.log(newUser)
 
 
   const handleSubmit = (e) => {
@@ -55,12 +54,13 @@ export default function CreateNewUser() {
         })
     })
     .then(r => r.json())
-    .then(console.log)
+    .then(data => changeUser(data))
+
   };
 
   function handleOnChange(e){
     setNewUser({...newUser, [e.target.name]: e.target.value})
-    }
+}
 
   return (
     <ThemeProvider theme={theme}>
@@ -144,7 +144,6 @@ export default function CreateNewUser() {
                 />
               </Grid>
             </Grid>
-            <Link to={`/home/${newUser.username}`} style= {{textDecoration: 'none', color:'#000000'}}>
             <Button
               type="submit"
               fullWidth
@@ -153,10 +152,9 @@ export default function CreateNewUser() {
             >
               Sign Up
             </Button>
-            </Link>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/welcome" variant="body2">
+                <Link to="/" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -1,19 +1,35 @@
 import React from 'react'
 import NavBar from './NavBar';
+import Home from './Home';
 import LandingPage from './LandingPage';
 import CreateNewUser from './CreateNewUser';
+import OrganizedTrip from './OrganizedTrip';
 import { Route, Switch } from "react-router-dom";
+import {useState} from 'react'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null)
+
+  const changeUser = (user) => {
+    setCurrentUser(user)
+  }
+  
+
   return (
     <div className="App">
       <NavBar/>
       <Switch>
-        <Route path="/create_new_user">
-          <CreateNewUser />
+      <Route path="/trips/trip/:id">
+          <OrganizedTrip />
         </Route>
-        <Route path="/welcome">
-          <LandingPage />
+        <Route path="/home/:username">
+          <Home currentUser={currentUser}/>
+        </Route>
+        <Route path="/create_new_user">
+          <CreateNewUser changeUser={changeUser}/>
+        </Route>
+        <Route path="/">
+          <LandingPage changeUser={changeUser}/>
         </Route>
       </Switch>
     </div>

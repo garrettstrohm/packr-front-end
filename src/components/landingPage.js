@@ -3,13 +3,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useState} from 'react'
 
 function Copyright(props) {
   return (
@@ -26,16 +27,24 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+export default function LandingPage({changeUser}) {
+    const [userLogin, setUserLogin] = useState("")
+    let history = useHistory()
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      findCurrentUser(userLogin)
+    }
+    const handleChange = e => {
+      setUserLogin(e.target.value)
+    }
+
+    async function findCurrentUser(username) {
+        const response = await fetch(`http://localhost:9595/users/${username}`)
+        const user = await response.json()
+        changeUser(user)
+        history.push(`/home/${user.username}`)
+    }
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,6 +90,8 @@ export default function SignInSide() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onChange={handleChange}
+                value={userLogin}
               />
               
               <Button

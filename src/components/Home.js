@@ -1,6 +1,12 @@
-function Home(){
+import OrganizedTripList from "./OrganizedTripList";
+import AdventureList from "./AdventureList"
+
+function Home({currentUser}){
     return(
-        <div>I am home page</div>
+        <>
+            <OrganizedTripList currentUser={currentUser}/>
+            <AdventureList currentUser={currentUser}/>
+        </>
     );
 }
 
