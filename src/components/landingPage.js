@@ -11,6 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useState} from 'react'
+import Image from "../assets/IMG-1541.jpg"
+import Packr from "../assets/Packr.png"
 
 function Copyright(props) {
   return (
@@ -58,7 +60,7 @@ export default function LandingPage({changeUser}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(./src/assets/IMG-1541.jpg)',
+            backgroundImage: `url(${Image})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -76,9 +78,7 @@ export default function LandingPage({changeUser}) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+              <img src={`url(${Packr})`}></img>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
