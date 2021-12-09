@@ -10,7 +10,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import {UserContext} from "../context/userState"
+import{useHistory} from "react-router-dom"
 
 function Copyright(props) {
   return (
@@ -35,12 +37,15 @@ export default function CreateNewUser({changeUser}) {
         email:"",
         phone:"",
     })
+    let history = useHistory();
 
+    const{user, setUser} = useContext(UserContext)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    fetch('http://localhost:9595/create_new_user', {
+    console.log("newUser:", newUser)
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+    fetch('http://localhost:9595/users', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -55,11 +60,12 @@ export default function CreateNewUser({changeUser}) {
     })
     .then(r => r.json())
     .then(data => changeUser(data))
-
+    history.push(`/home/${user.username}`)
   };
 
   function handleOnChange(e){
     setNewUser({...newUser, [e.target.name]: e.target.value})
+    setUser({...newUser, [e.target.name]: e.target.value})
 }
 
   return (
@@ -149,6 +155,7 @@ export default function CreateNewUser({changeUser}) {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={()=>setUser(newUser)}
             >
               Sign Up
             </Button>

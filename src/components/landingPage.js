@@ -39,6 +39,8 @@ export default function LandingPage({changeUser}) {
       setUserLogin(e.target.value)
     }
 
+    console.log("userLogin:", userLogin)
+
     async function findCurrentUser(username) {
         const response = await fetch(`http://localhost:9595/users/${username}`)
         const user = await response.json()

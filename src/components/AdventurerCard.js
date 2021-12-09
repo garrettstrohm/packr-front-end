@@ -1,4 +1,4 @@
-function AdventurerCard({id, first_name, last_name, phone, email, onDeleteAdv, adventures}){
+function AdventurerCard({id, first_name, last_name, phone, email, trip, onDeleteAdv, adventures}){
     const targetAdventure = adventures.filter(adv => adv.user_id === id)
    
     async function deleteAdventurer(){

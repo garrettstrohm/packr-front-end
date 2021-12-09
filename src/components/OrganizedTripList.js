@@ -1,7 +1,37 @@
 import OrganizedTripCards from "./OrganizedTripCards"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
+import {UserContext} from "../context/userState"
+import Button from "@mui/material/Button"
+import {
+    createTheme,
+    ThemeProvider as MuiThemeProvider,
+  } from '@mui/material/styles';
+  import styled, { ThemeProvider } from 'styled-components';
+  
+  const customTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#FF9B00',
+        text: '#ffffff',
+        hover: '#FFBE59'
+      },
+    },
+  });
+  
+  const StyledButton = styled(Button)`
+  ${({ theme }) => `
+    cursor: pointer;
+    background-color: ${theme.palette.primary.main};
+    transition: ${theme.transitions.create(['background-color', 'transform'], {
+        duration: theme.transitions.duration.standard,
+    })};
+    &:hover {
+        background-color: ${theme.palette.primary.hover};
+    }
+  `}
+  `;
 
-function OrganizedTripList({currentUser}) {
+function OrganizedTripList() {
     const [trips, setTrips] = useState([])
     const [newTrip, setNewTrip] = useState({
         title:"",
@@ -10,18 +40,18 @@ function OrganizedTripList({currentUser}) {
         user_id: ""
     })
     const[tripsToDisplay, setTripsToDisplay] = useState([])
+    const{user, setUser} = useContext(UserContext)
 
     useEffect(() => {
-        fetch(`http://localhost:9595/trips/${currentUser.id}`)
+        fetch(`http://localhost:9595/trips/${user.id}`)
         .then(r => r.json())
         .then(tripData => {
             setTrips(tripData)
             setTripsToDisplay(tripData)
         })
-    }, [currentUser.id])
+    }, [])
 
-
-
+    console.log("user:", user)
     function handleOnChange(e){
         setNewTrip({...newTrip, [e.target.name]: e.target.value})
     }
@@ -33,7 +63,12 @@ function OrganizedTripList({currentUser}) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newTrip)
+            body: JSON.stringify({
+                title: newTrip.title,
+                date: newTrip.date,
+                description: newTrip.description,
+                user_id: user.id
+            })
         })
         .then(r => r.json())
         .then(data => {
@@ -42,7 +77,7 @@ function OrganizedTripList({currentUser}) {
                 title:"",
                 date:"",
                 description:"",
-                user_id: currentUser.id
+                user_id: user.id
             })
         })
     }
@@ -59,7 +94,7 @@ function OrganizedTripList({currentUser}) {
 
     return(
         <>
-        <h2>OrganizedTripList</h2>
+        <h2>My Organized Trips</h2>
         <h4>Create a Trip</h4>
         <form onSubmit={handleSubmit}>
             <label>
@@ -74,8 +109,13 @@ function OrganizedTripList({currentUser}) {
             Description:
             <input type="text" placeholder="Trip Description" name="description" value={newTrip.description}  onChange={handleOnChange}></input>
             </label>
-            <input type="submit"></input>
+            <MuiThemeProvider theme={customTheme}>
+            <ThemeProvider theme={customTheme}>
+                <StyledButton type="submit" size="small" variant="contained" sx={{color: "#ffffff", borderColor:"#ffffff", background:"#FF9B00", margin: "0px 0px 0px 1px", height:"22px"}}>Add Trip</StyledButton>
+            </ThemeProvider>
+            </MuiThemeProvider>
         </form>
+        <br />
         {tripCards}
         </>
     );

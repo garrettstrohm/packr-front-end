@@ -3,17 +3,21 @@ import {useState, useEffect} from "react"
 
 function AdventureList({currentUser}){
     const[adventures, setAdventures] = useState([])
+    const[adventuresToDiplay, setAdventuresToDisplay] = useState([])
     
     useEffect(() => {
         fetch(`http://localhost:9595/adventures/myadventures/${currentUser.id}`)
         .then(r => r.json())
-        .then(adventureData => setAdventures(adventureData))
-    }, [])
+        .then(adventureData => {
+            setAdventures(adventureData)
+            setAdventuresToDisplay(adventureData)
+        })
+    }, [currentUser.id])
 
-    console.log(adventures)
 
-    const adventureCardList = adventures.map(adv => <AdventureCards key={adv.id} id={adv.id} trip={adv.trip} items={adv.trip.trip_items}/>)
+    const adventureCardList = adventuresToDiplay.map(adv => <AdventureCards key={adv.id} id={adv.id} trip={adv.trip}/>)
 
+    console.log("adventures:", adventures.length)
     return(
         <div>
             <h2>My Adventures</h2>
