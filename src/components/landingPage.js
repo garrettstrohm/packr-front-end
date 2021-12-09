@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,12 +6,12 @@ import {Link, useHistory} from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useState} from 'react'
-import Image from "../assets/IMG-1541.jpg"
-import Packr from "../assets/Packr.png"
+import Pic from "../assets/IMG-1541.jpg"
+import Packr from "../assets/Packr.jpg"
+import Image from 'material-ui-image'
 
 function Copyright(props) {
   return (
@@ -26,7 +25,7 @@ function Copyright(props) {
     </Typography>
   );
 }
-
+console.log(Packr)
 const theme = createTheme();
 
 export default function LandingPage({changeUser}) {
@@ -60,7 +59,7 @@ export default function LandingPage({changeUser}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${Image})`,
+            backgroundImage: `url(${Pic})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -78,8 +77,8 @@ export default function LandingPage({changeUser}) {
               alignItems: 'center',
             }}
           >
-              <img src={`url(${Packr})`}></img>
             <Typography component="h1" variant="h5">
+            <Image src={`url(${Packr})`}/>
               Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
