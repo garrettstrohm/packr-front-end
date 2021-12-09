@@ -1,17 +1,16 @@
 import React from 'react'
-import NavBar from './NavBar';
 import Home from './Home';
 import LandingPage from './LandingPage';
 import CreateNewUser from './CreateNewUser';
 import OrganizedTrip from './OrganizedTrip';
 import Adventure from './Adventure';
 import { Route, Switch } from "react-router-dom";
-import {useState, useContext} from 'react'
+import {useContext} from 'react'
 import {UserContext} from '../context/userState'
 
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)
+
   const {user, setUser} = useContext(UserContext)
   
   const changeUser = (user) => {

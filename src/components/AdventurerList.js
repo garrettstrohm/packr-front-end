@@ -14,7 +14,7 @@ function AdventurerList({trip, adventures, setAdventures}){
     })
 
     let targetTrip = trip
-
+   
     useEffect(() => {
         setNewAdventurer({...newAdventurer, trip_id: trip.id})
     }, [])
@@ -23,7 +23,7 @@ function AdventurerList({trip, adventures, setAdventures}){
         const advList = adventures.map(adv => adv.user)
         setAdventurers(advList)
         setAdventurersToDisplay(advList)
-    }, [])
+    }, [adventures])
 
     function handleOnChange(e){
         setNewAdventurer({...newAdventurer, [e.target.name]: e.target.value})

@@ -21,7 +21,7 @@ function AdventureList({currentUser}){
     return(
         <div>
             <h2>My Adventures</h2>
-            {adventureCardList}
+            {adventures.length === 0 ? "" : adventureCardList}
         </div>
     );
 }

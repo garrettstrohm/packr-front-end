@@ -41,13 +41,13 @@ function AdventureCard({id, trip}){
         <React.Fragment>
           <CardContent>
             <Typography variant="h5" component="div">
-              {trip.title}
+              {trip === undefined ? "" : trip.title}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {trip.date}
+              {trip === undefined ? "" : trip.date}
             </Typography>
             <Typography variant="body2">
-              {trip.description}
+              {trip === undefined ? "" : trip.description}
             </Typography>
           </CardContent>
           <CardActions>
