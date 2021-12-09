@@ -9,24 +9,34 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useState} from 'react'
-import Pic from "../assets/IMG-1541.jpg"
-import Packr from "../assets/Packr.jpg"
-import Image from 'material-ui-image'
+import Pic from "../assets/packrbackground.jpg"
+
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Packr.com
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
-console.log(Packr)
+
 const theme = createTheme();
+
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF9B00',
+      text: '#ffffff',
+      hover: '#FFBE59'
+    },
+  },
+});
+
 
 export default function LandingPage({changeUser}) {
     const [userLogin, setUserLogin] = useState("")
@@ -45,9 +55,11 @@ export default function LandingPage({changeUser}) {
     async function findCurrentUser(username) {
         const response = await fetch(`http://localhost:9595/users/${username}`)
         const user = await response.json()
+        console.log("response:", response.status)
         changeUser(user)
         history.push(`/home/${user.username}`)
-    }
+      }
+    
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,8 +90,7 @@ export default function LandingPage({changeUser}) {
             }}
           >
             <Typography component="h1" variant="h5">
-            <Image src={`url(${Packr})`}/>
-              Sign in
+              Sign In
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -94,7 +105,7 @@ export default function LandingPage({changeUser}) {
                 onChange={handleChange}
                 value={userLogin}
               />
-              
+              <ThemeProvider theme={customTheme}>
               <Button
                 type="submit"
                 fullWidth
@@ -103,6 +114,7 @@ export default function LandingPage({changeUser}) {
               >
                 Sign In
               </Button>
+              </ThemeProvider>
               <Grid container>
                 <Grid item>
                   <Link to='/create_new_user' variant="body2">

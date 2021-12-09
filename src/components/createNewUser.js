@@ -13,13 +13,26 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useState, useContext} from 'react'
 import {UserContext} from "../context/userState"
 import{useHistory} from "react-router-dom"
+import {
+  ThemeProvider as MuiThemeProvider,
+} from '@mui/material/styles';
+
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF9B00',
+      text: '#ffffff',
+      hover: '#FFBE59'
+    },
+  },
+});
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Packr.com
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -80,9 +93,6 @@ export default function CreateNewUser({changeUser}) {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -150,15 +160,19 @@ export default function CreateNewUser({changeUser}) {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={()=>setUser(newUser)}
-            >
-              Sign Up
-            </Button>
+            <MuiThemeProvider theme={customTheme}>
+            <ThemeProvider theme={customTheme}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={()=>setUser(newUser)}
+              >
+                Sign Up
+              </Button>
+            </ThemeProvider>
+            </MuiThemeProvider>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/" variant="body2">
