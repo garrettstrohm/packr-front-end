@@ -35,21 +35,6 @@ function OrganizedTrip() {
 
     return (
         <>
-            {/* <NavBar />
-            <div float="left">
-                <br />
-                <h1>{trip.title}</h1>
-                <h2>Date: {trip.date}</h2>
-                <h4>Description: {trip.description}</h4>
-            </div>
-            <div float="right">
-                <h1>Adventurers:</h1>
-                <AdventurerList adventures={adventures} trip={trip} setAdventures={setAdventures}/>
-            </div>
-            <div>
-                <h1>Gear List</h1>
-                <ItemList items={items} setItems={setItems} trip={trip.id}/>
-            </div> */}
              <NavBar />
             
             <Box sx={{ width: '100%', marginTop: 10 }}>

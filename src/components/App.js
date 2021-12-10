@@ -23,7 +23,7 @@ function App() {
         <Route path="/adventures/adventure/:id">
           <Adventure />
         </Route>
-      <Route path="/trips/trip/:id">
+        <Route path="/trips/trip/:id">
           <OrganizedTrip />
         </Route>
         <Route path="/home/:username">

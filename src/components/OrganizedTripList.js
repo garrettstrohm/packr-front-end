@@ -51,7 +51,6 @@ function OrganizedTripList() {
         })
     }, [])
 
-    console.log("user:", user)
     function handleOnChange(e){
         setNewTrip({...newTrip, [e.target.name]: e.target.value})
     }
@@ -86,8 +85,11 @@ function OrganizedTripList() {
         fetch(`http://localhost:9595/trips/trip/${id}`, {
             method: "Delete"
         })
-        const updatedTrips = trips.filter(trip => trip.id !== id)
-        setTripsToDisplay(updatedTrips)
+        .then(r => r.json())
+        .then(deletedTrip => {
+            const updatedTrips = trips.filter(trip => trip.id !== deletedTrip.id)
+            setTripsToDisplay(updatedTrips)
+        })
     }
 
     const tripCards = tripsToDisplay.map(trip => <OrganizedTripCards key={trip.name} id={trip.id} title={trip.title} date={trip.date} description={trip.description} handleDeleteTrip={handleDeleteTrip}/>)

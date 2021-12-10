@@ -1,12 +1,10 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import {Link} from 'react-router-dom'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -54,8 +52,6 @@ export default function CreateNewUser({changeUser}) {
 
     const{user, setUser} = useContext(UserContext)
 
-    console.log("newUser:", newUser)
-
     const handleSubmit = (e) => {
       e.preventDefault();
     fetch('http://localhost:9595/users', {
@@ -72,8 +68,17 @@ export default function CreateNewUser({changeUser}) {
         })
     })
     .then(r => r.json())
-    .then(data => changeUser(data))
-    history.push(`/home/${user.username}`)
+    .catch(error => {
+      console.log(error)
+    })
+    .then(data => {
+      if (typeof data === "string"){
+        alert("That username is already taken")
+      } else {
+        changeUser(data)
+        history.push(`/home/${user.username}`)
+      }
+    })
   };
 
   function handleOnChange(e){

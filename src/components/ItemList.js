@@ -44,6 +44,12 @@ function ItemList({items, setItems, trip}){
         .then(r => r.json())
         .then(data => {
             setItems([...items, data])
+            setNewItem({
+                name:"",
+                description:"",
+                quantity:0,
+                trip_id: trip,
+            })
         })
     }
 
